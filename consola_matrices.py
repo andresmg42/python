@@ -14,6 +14,17 @@ Created on Wed Feb 23 18:10:42 2022
 import untitled0 as up
 import determinante_ultimo_2 as du
 import copy
+# from tkinter import *
+
+
+
+# gui=Tk()
+# text_area=Text(gui,wrap=WORD,width=50,height=50,font=('Times New Roman',15))
+
+# def kinter():
+#     frame=Tk()
+#     frame.mainloop()
+    
 def iniciar():
     print('WELCOME TO A.O. MATRIX REDUCER PROGRAM')
     print('-------------------------------------------------------------------------')
@@ -31,7 +42,6 @@ def iniciar():
     while flag:
         
       
-            
         try:
             print('menu------------------------------------------------------------------')
             print('''
@@ -54,9 +64,15 @@ def iniciar():
                 print()
                 print()
                 matrix=copy.deepcopy(matriz)
-                up.Mostrar(matrix)
+                print(up.Mostrar(matrix))
+                # text=up.Mostrar(matrix)+'\n'
+                # text_area.insert(END,text)
                 try:
-                    up.redux(matrix,n)
+                    print(up.redux(matrix, n))
+                    # text=up.redux(matrix,n)+'\n'
+                    # text_area.insert(END,text)
+                    # text_area.pack()
+                    # text_area.mainloop()
                 except:
                     print('!!! THE MATRIX IS NOT INVERTIBLE OR HAVE INFINITE SOLUTIONS ¡¡¡')
                 
@@ -105,3 +121,4 @@ def iniciar():
             print()
             pass
 
+iniciar()

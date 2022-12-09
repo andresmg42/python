@@ -34,24 +34,25 @@ def part_list(list1, num):
     return new
 
 def Mostrar(matriz):
-    print('the matrix is as follows :')
+    string='the matrix is as follows :\n'
     a = np.array(matriz)
 
     s = [[str(Fraction(e).limit_denominator()) for e in row] for row in a]
     lens = [max(map(len, col)) for col in zip(*s)]
     fmt = '\t'.join('{{:{}}}'.format(x) for x in lens)
     table = [fmt.format(*row) for row in s]
-    print('\n'.join(table))
-    print()
+    string+='\n'.join(table)+'\n'
+    return string
     
 def redux(row,column,matriz):
+    string=''
     num=matriz[column][row]*-1*(1/matriz[row][row])
     if num>0:
         sign='+'
-        print('R{2}--->R{2} {3} {1}R{0}'.format(row+1,str(Fraction(num).limit_denominator()),column+1,sign))
+        string+='R{2}--->R{2} {3} {1}R{0}'.format(row+1,str(Fraction(num).limit_denominator()),column+1,sign)+'\n'
     elif num<0:
         sign=''
-        print('R{2}--->R{2} {3} {1}R{0}'.format(row+1,str(Fraction(num).limit_denominator()),column+1,sign))
+        string+='R{2}--->R{2} {3} {1}R{0}'.format(row+1,str(Fraction(num).limit_denominator()),column+1,sign)+'\n'
     
     
     
