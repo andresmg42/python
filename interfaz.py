@@ -7,18 +7,21 @@ Created on Thu Dec 15 12:29:40 2022
 import tkinter as tk
 from fractions import Fraction
 
-def press_enter(event):
-    print('hecho')
-    
-def create_matrix(n, m):
-    matrix = [[0]*m]*n
+def matriz(n,m):
+    matriz=[[0]*m]*n
+    return matriz
 
+def pressedkey(enter):
+    global text
+    global matrix
+    global e_row_column
     for i in range(len(matrix)):
         for j in range(len(matrix[0])):
-            num = float(
-                Fraction(input("type the number of row {0}, column {1} :".format(i+1, j+1))))
-            matrix[i][j] = num
-    return matrix
+            row_column.set(f'row {i+1}, column {j+1}')
+            matrix[i][j]=float(Fraction(e_row_column.get()))
+            e_row_column.delete(0,'end')
+    
+    
 
 
 gui=tk.Tk()
@@ -36,11 +39,13 @@ l_height=tk.Label(f_ing,text='height = ')
 # height_var=tk.StringVar()
 row_column=tk.StringVar()
 
-row_column.set('row 1, column 1')
+#row_column.set('row 1, column 1')
 
 
 e_width=tk.Entry(f_ing)
 e_height=tk.Entry(f_ing)
+
+
 
 l_width.grid(row=0,column=0)
 l_height.grid(row=1,column=0)
@@ -64,6 +69,10 @@ f_createm.grid(row=1,column=0)
 
 
 
+e_row_column.bind("<Return>",pressedkey)
+
+
+
 # tabcontrol=ttk.Notebook(gui)
 
 # tab1=tk.Frame(tabcontrol)
@@ -74,3 +83,6 @@ f_createm.grid(row=1,column=0)
 # tabcontrol.add(tab3,text='determinant')
 # tabcontrol.pack(expand=1,fill='both')
 gui.mainloop()
+
+matrix=matriz(int(e_width.get()),int(e_height.get()))
+# print(matriz)
