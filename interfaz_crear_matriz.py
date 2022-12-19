@@ -5,7 +5,9 @@ Created on Sun Dec 18 14:16:22 2022
 @author: andres
 """
 
-from tkinter import Tk, Label, StringVar, Button, Entry
+from tkinter import *
+import reduccion as rd
+from fractions import Fraction
 window = Tk()
 window.title("Matrix")
 window.geometry("650x500+120+120")
@@ -19,42 +21,61 @@ entries = []
 # callback function to get your StringVars
 
     
-def get_mat():
+def get_mat(rows,cols):
     global matriz
     matrix = []
     for i in range(rows):
         matrix.append([])
         for j in range(cols):
-            matrix[i].append(text_var[i][j].get())
+            matrix[i].append(float(Fraction(text_var[i][j].get())))
+    return matrix
 
+def b_reducir(rows,cols):
+    matrix=get_mat(rows,cols)
+    print(rd.redux(matrix,rows))
     
 
 Label(window, text="Enter matrix :", font=('arial', 10, 'bold'), 
-      bg="green").place(x=20, y=100)
+      ).place(x=20, y=100)
 
-x2 = 0
-y2 = 0
-rows, cols = (2,2)
+heigth=StringVar()
+width=StringVar()
+
 l_width=Label(window,text='width').place(x=10,y=10)
 l_height=Label(window,text='height').place(x=10,y=40)
-e_width=Entry(window).place(x=50,y=10)
-e_height=Entry(window).place(x=50,y=40)
+e_width=Entry(window,textvariable=width).place(x=50,y=10)
+e_height=Entry(window,textvariable=heigth).place(x=55,y=40)
 
-for i in range(rows):
-    # append an empty list to your two arrays
-    # so you can append to those later
-    text_var.append([])
-    entries.append([])
-    for j in range(cols):
-        # append your StringVar and Entry
-        text_var[i].append(StringVar())
-        entries[i].append(Entry(window, textvariable=text_var[i][j],width=3))
-        entries[i][j].place(x=50 + x2, y=150 + y2)
-        x2 += 30
 
-    y2 += 30
+
+def create_mat(rows,cols,gui):
+    frame=Frame(gui)
     x2 = 0
-button= Button(window,text="Submit", bg='bisque3', width=15, command=get_mat)
+    y2 = 0
+  
+    for i in range(rows):
+        # append an empty list to your two arrays
+        # so you can append to those later
+        text_var.append([])
+        entries.append([])
+        for j in range(cols):
+            # append your StringVar and Entry
+            text_var[i].append(StringVar())
+            entries[i].append(Entry(frame, textvariable=text_var[i][j],width=3))
+            # entries[i][j].place(x=50 + x2, y=150 + y2)
+            entries[i][j].grid(row=i,column=j,padx=3,pady=3)
+            x2 += 30
+    
+        y2 += 30
+        x2 = 0
+    print(rows)
+    print(cols)
+    frame.place(x=10,y=150)
+
+
+button_c=Button(window,text='create',width=15,command=lambda:create_mat(int(heigth.get()),int( width.get()),window))
+button_c.place(x=10,y=70)        
+button= Button(window,text="Submit", bg='bisque3', width=15, command=lambda:b_reducir(int(heigth.get()),int(width.get())))
 button.place(x=260,y=400)
 
 

@@ -67,14 +67,14 @@ def iniciar():
             print(up.Mostrar(matrix))
             # text=up.Mostrar(matrix)+'\n'
             # text_area.insert(END,text)
-            try:
-                print(up.redux(matrix, n))
+            # try:
+            print(up.redux(matrix, n))
                 # text=up.redux(matrix,n)+'\n'
                 # text_area.insert(END,text)
                 # text_area.pack()
                 # text_area.mainloop()
-            except:
-                print('!!! THE MATRIX IS NOT INVERTIBLE OR HAVE INFINITE SOLUTIONS ¡¡¡')
+            # except:
+            #     print('!!! THE MATRIX IS NOT INVERTIBLE OR HAVE INFINITE SOLUTIONS ¡¡¡')
             
         
         elif o==1:
