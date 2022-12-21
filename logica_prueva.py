@@ -110,12 +110,12 @@ def redux(matriz, n):
 
         if matriz[array[i][0]][i] == 0:
             matriz,text = swap_rows(matriz)
+            string+=text+'\n'
 
-            string+=text + '\n' + Mostrar(matriz)+'\n'
-            print(matriz)
+            string+=Mostrar(matriz)+'\n'
+        
 
         if matriz[array[i][0]][i] != 1:
-            print(matriz)
             string+="R{0}-->{1}R{0}".format(i+1, str(1 /
                   Fraction(matriz[array[i][0]][i]).limit_denominator()))+'\n'
             list0 = part_list(matriz[i], matriz[array[i][0]][i])
@@ -142,5 +142,3 @@ def redux(matriz, n):
 
         string+="------------------------------------------------------------------"+'\n'
     return string
-
-#print(redux([[1,2,3],[4,5,6],[7,8,9]],3))

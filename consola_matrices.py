@@ -14,12 +14,12 @@ Created on Wed Feb 23 18:10:42 2022
 import reduccion as up
 import determinante as du
 import copy
-# from tkinter import *
+from tkinter import *
 
 
 
-# gui=Tk()
-# text_area=Text(gui,wrap=WORD,width=50,height=50,font=('Times New Roman',15))
+gui=Tk()
+text_area=Text(gui,wrap=WORD,width=50,height=50,font=('Times New Roman',15))
 
 # def kinter():
 #     frame=Tk()
@@ -64,15 +64,15 @@ def iniciar():
             print()
             print()
             matrix=copy.deepcopy(matriz)
-            print(up.Mostrar(matrix))
-            # text=up.Mostrar(matrix)+'\n'
-            # text_area.insert(END,text)
+            #up.Mostrar(matrix)
+            text=up.Mostrar(matrix)+'\n'
+            text_area.insert(END,text)
             # try:
-            print(up.redux(matrix, n))
-                # text=up.redux(matrix,n)+'\n'
-                # text_area.insert(END,text)
-                # text_area.pack()
-                # text_area.mainloop()
+            #up.redux(matrix, n)
+            text=up.redux(matrix,n)+'\n'
+            text_area.insert(END,text)
+            text_area.pack()
+            text_area.mainloop()
             # except:
             #     print('!!! THE MATRIX IS NOT INVERTIBLE OR HAVE INFINITE SOLUTIONS ¡¡¡')
             
