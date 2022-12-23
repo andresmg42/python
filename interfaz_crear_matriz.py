@@ -36,22 +36,44 @@ def reducir(rows,cols):
     'hacer validaciones'
     matriz=get_mat(rows,cols)
     matrix=copy.deepcopy(matriz)
-    text=rd.Mostrar(matrix)+'\n'
-    text+=rd.redux(matrix,rows)
+    try:
+        text=rd.Mostrar(matrix)+'\n'
+        text+=rd.redux(matrix,rows)
+    except:
+        text='!!! THE MATRIX IS NOT VALID OR HAVE INFINITE SOLUTIONS ¡¡¡'
     kinter(text)
 
 def determinante(rows,cols):
     'hacer validaciones'
+    if rows==cols:
+        matriz=get_mat(rows, cols)
+        matrix=copy.deepcopy(matriz)
+        try:
+            text=rd.Mostrar(matrix)+'\n'
+            text=dt.mean(matrix)
+        except:
+            text='!!!THE MATRIX IS NOT VALID!!!\nPLEASE TYPE A VALID MATRIX'
+    else:
+        text='IT IS NOT A SQUARE MATRIX'
+    kinter(text)
+
+
+def inversa(rows,cols):
     matriz=get_mat(rows, cols)
     matrix=copy.deepcopy(matriz)
-    text=rd.Mostrar(matrix)+'\n'
-    text=dt.mean(matrix)
+   
+    try:
+        text=rd.Mostrar(matrix)
+        matrix=rd.add_identity(matrix)
+        text=rd.redux(matrix,rows)
+    except:
+        text='THE MATRIX IS NOT INVERTIBLE'
     kinter(text)
 
 def kinter(text):
     
     window=Tk()
-    text_area=Text(window,wrap=WORD,width=50,height=50,font=('Times New Roman',15))
+    text_area=Text(window,width=50,height=30,font=('Times New Roman',15))
     text_area.insert(END,text)
     text_area.pack()
     text_area.mainloop()
@@ -67,11 +89,11 @@ def create_mat(rows,cols,gui):
         for j in range(cols):
             # append your StringVar and Entry
             text_var[i].append(StringVar())
-            entries[i].append(Entry(frame, textvariable=text_var[i][j],width=3))
+            entries[i].append(Entry(frame, textvariable=text_var[i][j],width=3,font=('Times New Roman',18)))
             # entries[i][j].place(x=50 + x2, y=150 + y2)
             entries[i][j].grid(row=i,column=j,padx=3,pady=3)
             
-    frame.place(x=10,y=150)
+    frame.place(x=280,y=200)
     
 
 Label(window, text="Enter matrix :", font=('arial', 10, 'bold'), 
@@ -92,9 +114,11 @@ e_height=Entry(window,textvariable=heigth).place(x=55,y=40)
 button_c=Button(window,text='create',width=15,command=lambda:create_mat(int(heigth.get()),int( width.get()),window))
 button_c.place(x=10,y=70)        
 b_reducir= Button(window,text="redux", width=15, command=lambda:reducir(int(heigth.get()),int(width.get())))
-b_reducir.place(x=260,y=400)
+b_reducir.place(x=10,y=250)
 b_determinante=Button(window,text='find det.',width=15,command=lambda:determinante(int(heigth.get()),int( width.get())))
-b_determinante.place(x=260,y=200)
+b_determinante.place(x=10,y=200)
+b_inversa=Button(window,text='inversa',width=15,command=lambda:inversa(int(heigth.get()),int(width.get())))
+b_inversa.place(x=10,y=150)
 
 
 window.mainloop()
