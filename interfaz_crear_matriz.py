@@ -45,7 +45,7 @@ def start():
 
 
 
-    button_c=Button(window,text='create',width=15,bg='red',fg='white',command=lambda:create_mat(int(heigth.get()),int( width.get()),window))
+    button_c=Button(window,text='create',width=15,bg='red',fg='white',command=lambda:create_mat(heigth.get(),width.get(),window))
     button_c.place(x=10,y=70)        
     b_reducir= Button(window,text="redux", width=15, bg='red',fg='white',command=lambda:reducir(int(heigth.get()),int(width.get())))
     b_reducir.place(x=10,y=250)
@@ -76,9 +76,9 @@ def get_mat(rows,cols):
 
 def reducir(rows,cols):
     'hacer validaciones'
-    matriz=get_mat(rows,cols)
-    matrix=copy.deepcopy(matriz)
     try:
+        matriz=get_mat(rows,cols)
+        matrix=copy.deepcopy(matriz)
         text=rd.Mostrar(matrix)+'\n'
         text+=rd.redux(matrix,rows)
     except:
@@ -87,24 +87,25 @@ def reducir(rows,cols):
 
 def determinante(rows,cols):
     'hacer validaciones'
-    if rows==cols:
-        matriz=get_mat(rows, cols)
-        matrix=copy.deepcopy(matriz)
-        try:
+    
+    try:
+        if rows==cols:
+            matriz=get_mat(rows, cols)
+            matrix=copy.deepcopy(matriz)
             text=rd.Mostrar(matrix)+'\n'
             text=dt.mean(matrix)
-        except:
-            text='!!!THE MATRIX IS NOT VALID!!!\nPLEASE TYPE A VALID MATRIX'
-    else:
-        text='IT IS NOT A SQUARE MATRIX'
+        else:
+            text='IT IS NOT A SQUARE MATRIX'
+    except:
+        text='!!!THE MATRIX IS NOT VALID!!!\nPLEASE TYPE A VALID MATRIX'
+    
     kinter(text)
 
 
 def inversa(rows,cols):
-    matriz=get_mat(rows, cols)
-    matrix=copy.deepcopy(matriz)
-   
     try:
+        matriz=get_mat(rows, cols)
+        matrix=copy.deepcopy(matriz)
         text=rd.Mostrar(matrix)
         matrix=rd.add_identity(matrix)
         text=rd.redux(matrix,rows)
@@ -124,23 +125,32 @@ def kinter(text):
     text_area.mainloop()
     
 def create_mat(rows,cols,gui):
-
-    frame=Frame(gui)
-   
-    for i in range(rows):
-        # append an empty list to your two arrays
-        # so you can append to those later
-        text_var.append([])
-        entries.append([])
-        for j in range(cols):
-            # append your StringVar and Entry
-            text_var[i].append(StringVar())
-            entries[i].append(Entry(frame, textvariable=text_var[i][j],width=3,font=('Times New Roman',18)))
-            # entries[i][j].place(x=50 + x2, y=150 + y2)
-            entries[i][j].grid(row=i,column=j,padx=3,pady=3)
-    label=Label(window,text='enter your matrix:',bg='red',fg='white')
-    label.place(x=280,y=180)
-    frame.place(x=280,y=200)
+    try:
+        rows=int(rows)
+        cols=int(cols)
+        if rows>1 and cols>1:
+            frame=Frame(gui)
+           
+            for i in range(rows):
+                # append an empty list to your two arrays
+                # so you can append to those later
+                text_var.append([])
+                entries.append([])
+                for j in range(cols):
+                    # append your StringVar and Entry
+                    text_var[i].append(StringVar())
+                    entries[i].append(Entry(frame, textvariable=text_var[i][j],width=3,font=('Times New Roman',18)))
+                    # entries[i][j].place(x=50 + x2, y=150 + y2)
+                    entries[i][j].grid(row=i,column=j,padx=3,pady=3)
+            label=Label(window,text='enter your matrix:',bg='red',fg='white')
+            label.place(x=280,y=180)
+            frame.place(x=280,y=200)
+        else:
+            text='!PLEASE TYPE A SIZE GREATER THAN 1¡'
+            kinter(text)
+    except:
+        text='!PLEASE TYPE A VALID VALUE¡'
+        kinter(text)
     
 
 start()
