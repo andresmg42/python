@@ -64,15 +64,16 @@ def iniciar():
             print()
             print()
             matrix=copy.deepcopy(matriz)
-            #up.Mostrar(matrix)
-            text=up.Mostrar(matrix)+'\n'
-            text_area.insert(END,text)
+            print(up.Mostrar(matrix))
+            #text=up.Mostrar(matrix)+'\n'
+            # text_area.insert(END,text)
             # try:
             #up.redux(matrix, n)
-            text=up.redux(matrix,n)+'\n'
-            text_area.insert(END,text)
-            text_area.pack()
-            text_area.mainloop()
+            # text=up.redux(matrix,n)+'\n'
+            print(up.redux(matrix,n))
+            # text_area.insert(END,text)
+            # text_area.pack()
+            # text_area.mainloop()
             # except:
             #     print('!!! THE MATRIX IS NOT INVERTIBLE OR HAVE INFINITE SOLUTIONS ¡¡¡')
             
@@ -115,7 +116,6 @@ def iniciar():
             
        
             
-        # except:
         #     print()
         #     print('PLEASE TYPE A VALID OPTION!!!')
         #     print()

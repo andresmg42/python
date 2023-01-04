@@ -103,14 +103,17 @@ def determinante(rows,cols):
 
 
 def inversa(rows,cols):
-    try:
-        matriz=get_mat(rows, cols)
-        matrix=copy.deepcopy(matriz)
-        text=rd.Mostrar(matrix)
-        matrix=rd.add_identity(matrix)
-        text=rd.redux(matrix,rows)
-    except:
-        text='THE MATRIX IS NOT INVERTIBLE'
+    if rows==cols:
+        try:
+            matriz=get_mat(rows, cols)
+            matrix=copy.deepcopy(matriz)
+            text=rd.Mostrar(matrix)
+            matrix=rd.add_identity(matrix)
+            text=rd.redux(matrix,rows)
+        except:
+            text='THE MATRIX IS NOT INVERTIBLE'
+    else:
+        text='THE MATRIX IS NOT SQUARE'
     kinter(text)
     
 # def restart():
@@ -119,7 +122,7 @@ def inversa(rows,cols):
 def kinter(text):
     
     window=Tk()
-    text_area=Text(window,width=50,height=30,font=('Times New Roman',15),fg='red',bg='black')
+    text_area=Text(window,width=70,height=30,font=('Times New Roman',15),fg='red',bg='black')
     text_area.insert(END,text)
     text_area.pack()
     text_area.mainloop()
@@ -139,7 +142,7 @@ def create_mat(rows,cols,gui):
                 for j in range(cols):
                     # append your StringVar and Entry
                     text_var[i].append(StringVar())
-                    entries[i].append(Entry(frame, textvariable=text_var[i][j],width=3,font=('Times New Roman',18)))
+                    entries[i].append(Entry(frame, textvariable=text_var[i][j],width=5,font=('Times New Roman',18)))
                     # entries[i][j].place(x=50 + x2, y=150 + y2)
                     entries[i][j].grid(row=i,column=j,padx=3,pady=3)
             label=Label(window,text='enter your matrix:',bg='red',fg='white')
