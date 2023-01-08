@@ -6,24 +6,27 @@ Created on Sun Dec 18 14:16:22 2022
 """
 "corregir el tamaño de la caja de texto para las matrices 4x4"
 from tkinter import *
+from tkinter import messagebox
 import reduccion as rd
 import determinante as dt
 from fractions import Fraction
 from PIL import ImageTk,Image
 import copy
 
+
+
 def start():
-    
+    presentation()
     global window 
     window = Tk()
-    window.geometry("650x500+120+120")
+    window.geometry("800x500+120+120")
     window.wm_attributes('-transparentcolor', '#ab23ff')
-    image_=Image.open('C:/Users/andres/Desktop/proyecto finnal/python/univalle4.jpg')
+    image_=Image.open('./univalle4.jpg')
     bg=ImageTk.PhotoImage(image_)
     l_image=Label(window,image=bg)
     l_image.place(x=0,y=0)
     window.title("Matrix")
-    l_title=Label(text='Welocome to Matrix Calculator',bg='red',fg='white',font=('Times New Romman',15))
+    l_title=Label(text='Welcome to Matrix Calculator',bg='red',fg='white',font=('Times New Romman',15))
     l_title.place(x=220,y=30)
     window.resizable(False, False)
     global text_var
@@ -55,15 +58,20 @@ def start():
     b_inversa.place(x=10,y=150)
     b_reset=Button(window,text='restart',width=15,bg='red',fg='white',command=restart)
     b_reset.place(x=10,y=300)
-
-
+    
     window.mainloop()
+    
+    
 
 def restart():
     window.destroy()
     start()
 
-
+def warning(num):
+    if num==1:
+        messagebox.showwarning(title='warning',message='the matrix is not valid,\nplease type a valid matrix')
+    else:
+        messagebox.showwarning(title='warning',message='the matrix is not square')
     
 def get_mat(rows,cols):
     global matriz
@@ -75,18 +83,19 @@ def get_mat(rows,cols):
     return matrix
 
 def reducir(rows,cols):
-    'hacer validaciones'
     try:
         matriz=get_mat(rows,cols)
         matrix=copy.deepcopy(matriz)
         text=rd.Mostrar(matrix)+'\n'
         text+=rd.redux(matrix,rows)
+        kinter(text)
     except:
-        text='!!! THE MATRIX IS NOT VALID OR HAVE INFINITE SOLUTIONS ¡¡¡'
-    kinter(text)
+        # text='!!! THE MATRIX IS NOT VALID OR HAVE INFINITE SOLUTIONS ¡¡¡'
+        # messagebox.showwarning(title='warning',message='the matrix is not valid\nplease type a valid matrix')
+        warning(1)
+    
 
 def determinante(rows,cols):
-    'hacer validaciones'
     
     try:
         if rows==cols:
@@ -94,12 +103,17 @@ def determinante(rows,cols):
             matrix=copy.deepcopy(matriz)
             text=rd.Mostrar(matrix)+'\n'
             text=dt.mean(matrix)
+            kinter(text)
         else:
-            text='IT IS NOT A SQUARE MATRIX'
+            # text='IT IS NOT A SQUARE MATRIX'
+            # messagebox.showwarning(title='warning',message='the matrix is not square')
+            warning(2)
     except:
-        text='!!!THE MATRIX IS NOT VALID!!!\nPLEASE TYPE A VALID MATRIX'
+        # text='!!!THE MATRIX IS NOT VALID!!!\nPLEASE TYPE A VALID MATRIX'
+        # messagebox.showwarning(title='warning',message='!the matrix is not valid¡\nplease type a valid matrix')
+        warning(1)
     
-    kinter(text)
+    # kinter(text)
 
 
 def inversa(rows,cols):
@@ -107,25 +121,57 @@ def inversa(rows,cols):
         try:
             matriz=get_mat(rows, cols)
             matrix=copy.deepcopy(matriz)
-            text=rd.Mostrar(matrix)
+            text=rd.Mostrar(matrix)+'\n'
             matrix=rd.add_identity(matrix)
-            text=rd.redux(matrix,rows)
+            text+=rd.redux(matrix,rows)
+            kinter(text)
         except:
-            text='THE MATRIX IS NOT INVERTIBLE'
+            # text='THE MATRIX IS NOT INVERTIBLE'
+            # messagebox.showwarning(title='warning',message='The matrix is invalid, please type a valid matrix')
+            warning(1)
     else:
-        text='THE MATRIX IS NOT SQUARE'
-    kinter(text)
+        # text='THE MATRIX IS NOT SQUARE'
+        # messagebox.showwarning(title='warning',message='the matrix is not square')
+        warning(2)
+    # kinter(text)
     
-# def restart():
-#     frame.d
+
 
 def kinter(text):
     
     window=Tk()
-    text_area=Text(window,width=70,height=30,font=('Times New Roman',15),fg='red',bg='black')
+    scroll=Scrollbar(window,orient=HORIZONTAL)
+    scroll.pack(side=BOTTOM,fill=X)
+    text_area=Text(window,width=70,height=30,wrap=NONE,font=('Courier',15),fg='red',bg='black',xscrollcommand=scroll.set)
     text_area.insert(END,text)
-    text_area.pack()
-    text_area.mainloop()
+    text_area.config(state=DISABLED)
+    text_area.pack(expand=True,fill=BOTH)
+    scroll.config(command=text_area.xview)
+    mainloop()
+    
+def destroy(window):
+    window.destroy()
+
+def presentation():
+    window=Tk()
+    text=Text(window,width=70,height=20,bg='black',fg='red',)
+    string="""
+VALLEY UNIVERSITY\n
+SISTEM ENGINEERING\n
+members:\n
+Andres David Ortega Arteaga- 2241885
+Juan David Pinto Rodríguez- 2240440
+Santiago Ruiz Cortes- 2241586\n
+This program can reduce, find inverse and find the determinant of a matrix up to 8x8 in size. To type a new matrix press the restart button and type a new size. To start the program only close this window."""
+    
+    text.insert(END,string)
+    text.tag_configure('tag name',justify='center')
+    text.config(state=DISABLED)
+    button=Button(window,text='continue',command=lambda: destroy(window),bg='red',fg='white')
+    text.pack()
+    button.place(x=250,y=250)
+    mainloop()
+
     
 def create_mat(rows,cols,gui):
     try:
@@ -146,14 +192,16 @@ def create_mat(rows,cols,gui):
                     # entries[i][j].place(x=50 + x2, y=150 + y2)
                     entries[i][j].grid(row=i,column=j,padx=3,pady=3)
             label=Label(window,text='enter your matrix:',bg='red',fg='white')
-            label.place(x=280,y=180)
-            frame.place(x=280,y=200)
+            label.place(x=230,y=180)
+            frame.place(x=230,y=200)
         else:
             text='!PLEASE TYPE A SIZE GREATER THAN 1¡'
-            kinter(text)
+            messagebox.showwarning(title='warning',message=text)
+            # kinter(text)
     except:
         text='!PLEASE TYPE A VALID VALUE¡'
-        kinter(text)
+        # kinter(text)
+        messagebox.showwarning(title='warning',message=text)
     
-
 start()
+
