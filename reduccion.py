@@ -110,8 +110,11 @@ def redux(matriz, n):
 
         if matriz[array[i][0]][i] == 0:
             matriz,text = swap_rows(matriz)
-
-            string+=text + '\n' + Mostrar(matriz)+'\n'
+            if text=='':
+                string+='!THIS MATRIX DO NOT HAVE SOLUTION OR HAVE INFINITE SOLUTIONS¡'
+                return string
+            else:
+                string+=text + '\n' + Mostrar(matriz)+'\n'
             # return string
 
         if matriz[array[i][0]][i] != 1 and matriz[array[i][0]][i]!=0 :

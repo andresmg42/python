@@ -34,7 +34,7 @@ def start():
     global entries
     entries = []
     Label(window, text="OPTIONS:", font=('arial', 10, 'bold'), 
-          ).place(x=20, y=100)
+          bg='red',fg='white').place(x=20, y=100)
 
     heigth=StringVar()
     width=StringVar()
@@ -69,7 +69,7 @@ def restart():
 
 def warning(num):
     if num==1:
-        messagebox.showwarning(title='warning',message='the matrix is not valid,\nplease type a valid matrix')
+        messagebox.showwarning(title='warning',message='the matrix is invalid,\nplease type a valid matrix')
     else:
         messagebox.showwarning(title='warning',message='the matrix is not square')
     
@@ -140,13 +140,15 @@ def inversa(rows,cols):
 def kinter(text):
     
     window=Tk()
-    scroll=Scrollbar(window,orient=HORIZONTAL)
+    scroll=Scrollbar(window,orient=HORIZONTAL,troughcolor='red',width=30)
     scroll.pack(side=BOTTOM,fill=X)
-    text_area=Text(window,width=70,height=30,wrap=NONE,font=('Courier',15),fg='red',bg='black',xscrollcommand=scroll.set)
+    text_area=Text(window,width=20,height=30,wrap=NONE,font=('Courier',15),fg='red',bg='black',xscrollcommand=scroll.set)
     text_area.insert(END,text)
     text_area.config(state=DISABLED)
     text_area.pack(expand=True,fill=BOTH)
     scroll.config(command=text_area.xview)
+    button=Button(window,text='close',command=lambda:destroy(window),bg='red',fg='black')
+    button.pack(side=BOTTOM)
     mainloop()
     
 def destroy(window):
@@ -162,14 +164,14 @@ members:\n
 Andres David Ortega Arteaga- 2241885
 Juan David Pinto Rodríguez- 2240440
 Santiago Ruiz Cortes- 2241586\n
-This program can reduce, find inverse and find the determinant of a matrix up to 8x8 in size. To type a new matrix press the restart button and type a new size. To start the program only close this window."""
+This program can reduce, find inverse and find the determinant of a matrix up to 8x8 in size. To type a new matrix press the restart button and type a new size. To start the program just press continue\n                               !WARNING¡\nThis program only work whit matrix that have one solution or infinite solutions."""
     
     text.insert(END,string)
     text.tag_configure('tag name',justify='center')
     text.config(state=DISABLED)
-    button=Button(window,text='continue',command=lambda: destroy(window),bg='red',fg='white')
+    button=Button(window,text='continue',command=lambda: destroy(window),bg='red',fg='black')
     text.pack()
-    button.place(x=250,y=250)
+    button.place(x=250,y=270)
     mainloop()
 
     
@@ -199,7 +201,7 @@ def create_mat(rows,cols,gui):
             messagebox.showwarning(title='warning',message=text)
             # kinter(text)
     except:
-        text='!PLEASE TYPE A VALID VALUE¡'
+        text='!PLEASE TYPE A SIZE VALUE¡'
         # kinter(text)
         messagebox.showwarning(title='warning',message=text)
     
