@@ -96,7 +96,7 @@ def redux(matriz, n):
         if matriz[array[i][0]][i] == 0:
             matriz,text = swap_rows(matriz)
             if text=='':
-                string+='!THIS MATRIX DO NOT HAVE SOLUTION OR HAVE INFINITE SOLUTIONS¡'
+                string+=''
                 return string
             else:
                 string+=text + '\n' + Mostrar(matriz)+'\n'
