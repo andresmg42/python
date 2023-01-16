@@ -10,56 +10,6 @@ from fractions import Fraction
 import reduccion as nt
 import copy
 
-# def add_lists(list1, list2):
-#     new = []
-#     for i in range(len(list1)):
-#         numero = list1[i]+list2[i]
-#         new.append(numero)
-#     return new
-
-# def multiply_row(row, num):
-#     new_row = []
-#     for i in range(len(row)):
-#         new_num = row[i]*num
-#         new_row.append(new_num)
-#     return new_row
-
-# def part_list(list1, num):
-#     if num != 0:
-#         new = []
-#         for i in list1:
-#             new_num = i/num
-#             new.append(new_num)
-#     else:
-#         new = list1
-#     return new
-
-# def Mostrar(matriz):
-#     string='the matrix is as follows :\n'
-#     a = np.array(matriz)
-
-#     s = [[str(Fraction(e).limit_denominator()) for e in row] for row in a]
-#     lens = [max(map(len, col)) for col in zip(*s)]
-#     fmt = '\t'.join('{{:{}}}'.format(x) for x in lens)
-#     table = [fmt.format(*row) for row in s]
-#     string+='\n'.join(table)+'\n'
-#     return string
-    
-def redux(row,column,matriz):
-    string=''
-    num=matriz[column][row]*-1*(1/matriz[row][row])
-    if num>0:
-        sign='+'
-        string+='R{2}--->R{2} {3} {1}R{0}'.format(row+1,str(Fraction(num).limit_denominator()),column+1,sign)+'\n'
-    elif num<0:
-        sign=''
-        string+='R{2}--->R{2} {3} {1}R{0}'.format(row+1,str(Fraction(num).limit_denominator()),column+1,sign)+'\n'
-    
-    
-    
-    new_list=nt.multiply_row(matriz[row],num )
-    matriz[column]=nt.add_lists(matriz[column],new_list)
-    return matriz,string
 
 def determinant(matriz):
     mult=1
@@ -74,7 +24,6 @@ def staggered(row,matriz):
     string=''
     while column<len(matriz):
        
-       # matriz,string=redux(i,column,matriz)
         
         num=matriz[column][row]*-1*(1/matriz[row][row])
         if num>0:
@@ -87,7 +36,7 @@ def staggered(row,matriz):
         matriz[column]=nt.add_lists(matriz[column],new_list)
         
         column+=1
-        #Mostrar(matriz)
+    
     return matriz,string
 
 def show_signs(signs):

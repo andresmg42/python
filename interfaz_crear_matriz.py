@@ -20,7 +20,7 @@ def start():
     global window 
     window = Tk()
     window.geometry("800x500+120+120")
-    window.wm_attributes('-transparentcolor', '#ab23ff')
+    window.wm_attributes('-transparentcolor', '#ab23ff')#
     image_=Image.open('./univalle4.jpg')
     bg=ImageTk.PhotoImage(image_)
     l_image=Label(window,image=bg)
@@ -54,7 +54,7 @@ def start():
     b_reducir.place(x=10,y=250)
     b_determinante=Button(window,text='find det.',width=15,bg='red',fg='white',command=lambda:determinante(int(heigth.get()),int( width.get())))
     b_determinante.place(x=10,y=200)
-    b_inversa=Button(window,text='inversa',width=15,bg='red',fg='white',command=lambda:inversa(int(heigth.get()),int(width.get())))
+    b_inversa=Button(window,text='inverse',width=15,bg='red',fg='white',command=lambda:inversa(int(heigth.get()),int(width.get())))
     b_inversa.place(x=10,y=150)
     b_reset=Button(window,text='restart',width=15,bg='red',fg='white',command=restart)
     b_reset.place(x=10,y=300)
@@ -90,8 +90,6 @@ def reducir(rows,cols):
         text+=rd.redux(matrix,rows)
         kinter(text)
     except:
-        # text='!!! THE MATRIX IS NOT VALID OR HAVE INFINITE SOLUTIONS ¡¡¡'
-        # messagebox.showwarning(title='warning',message='the matrix is not valid\nplease type a valid matrix')
         warning(1)
     
 
@@ -102,18 +100,15 @@ def determinante(rows,cols):
             matriz=get_mat(rows, cols)
             matrix=copy.deepcopy(matriz)
             text=rd.Mostrar(matrix)+'\n'
-            text=dt.mean(matrix)
+            text+=dt.mean(matrix)
             kinter(text)
         else:
-            # text='IT IS NOT A SQUARE MATRIX'
-            # messagebox.showwarning(title='warning',message='the matrix is not square')
             warning(2)
     except:
-        # text='!!!THE MATRIX IS NOT VALID!!!\nPLEASE TYPE A VALID MATRIX'
-        # messagebox.showwarning(title='warning',message='!the matrix is not valid¡\nplease type a valid matrix')
+        
         warning(1)
     
-    # kinter(text)
+    
 
 
 def inversa(rows,cols):
@@ -126,28 +121,27 @@ def inversa(rows,cols):
             text+=rd.redux(matrix,rows)
             kinter(text)
         except:
-            # text='THE MATRIX IS NOT INVERTIBLE'
-            # messagebox.showwarning(title='warning',message='The matrix is invalid, please type a valid matrix')
+            
             warning(1)
     else:
-        # text='THE MATRIX IS NOT SQUARE'
-        # messagebox.showwarning(title='warning',message='the matrix is not square')
+        
         warning(2)
-    # kinter(text)
+    
     
 
 
 def kinter(text):
     
     window=Tk()
-    scroll=Scrollbar(window,orient=HORIZONTAL,troughcolor='red',width=30)
+    window.config(bg='black')
+    scroll=Scrollbar(window,orient=HORIZONTAL,width=25)
     scroll.pack(side=BOTTOM,fill=X)
-    text_area=Text(window,width=20,height=30,wrap=NONE,font=('Courier',15),fg='red',bg='black',xscrollcommand=scroll.set)
+    text_area=Text(window,width=70,height=30,wrap=NONE,font=('Courier',15),fg='red',bg='black',xscrollcommand=scroll.set)
     text_area.insert(END,text)
     text_area.config(state=DISABLED)
     text_area.pack(expand=True,fill=BOTH)
     scroll.config(command=text_area.xview)
-    button=Button(window,text='close',command=lambda:destroy(window),bg='red',fg='black')
+    button=Button(window,text='close',command=lambda:destroy(window),bg='red',fg='black',width=20)
     button.pack(side=BOTTOM)
     mainloop()
     
@@ -183,15 +177,12 @@ def create_mat(rows,cols,gui):
             frame=Frame(gui)
            
             for i in range(rows):
-                # append an empty list to your two arrays
-                # so you can append to those later
+              
                 text_var.append([])
                 entries.append([])
                 for j in range(cols):
-                    # append your StringVar and Entry
                     text_var[i].append(StringVar())
                     entries[i].append(Entry(frame, textvariable=text_var[i][j],width=5,font=('Times New Roman',18)))
-                    # entries[i][j].place(x=50 + x2, y=150 + y2)
                     entries[i][j].grid(row=i,column=j,padx=3,pady=3)
             label=Label(window,text='enter your matrix:',bg='red',fg='white')
             label.place(x=230,y=180)
@@ -199,10 +190,8 @@ def create_mat(rows,cols,gui):
         else:
             text='!PLEASE TYPE A SIZE GREATER THAN 1¡'
             messagebox.showwarning(title='warning',message=text)
-            # kinter(text)
     except:
         text='!PLEASE TYPE A SIZE VALUE¡'
-        # kinter(text)
         messagebox.showwarning(title='warning',message=text)
     
 start()

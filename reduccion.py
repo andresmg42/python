@@ -37,11 +37,7 @@ def multiply_row(row, num):
     return new_row
 
 
-def turn_fractions(matriz):
-    for i in range(len(matriz)):
-        for j in range(len(matriz[0])):
-            matriz[i][j] = str(Fraction(str(matriz[i][j])))
-    return matriz
+
 
 
 def Mostrar(matriz):
@@ -79,18 +75,7 @@ def add_identity(matriz):
     return matriz
 
 
-def create_matrix(n, m):
-    matrix = []
 
-    for i in range(n):
-        matrix.append([0]*m)
-
-    for i in range(len(matrix)):
-        for j in range(len(matrix[0])):
-            num = float(
-                Fraction(input("type the number of row {0}, column {1} :".format(i+1, j+1))))
-            matrix[i][j] = num
-    return matrix
 
 
 def redux(matriz, n):
@@ -115,7 +100,7 @@ def redux(matriz, n):
                 return string
             else:
                 string+=text + '\n' + Mostrar(matriz)+'\n'
-            # return string
+            
 
         if matriz[array[i][0]][i] != 1 and matriz[array[i][0]][i]!=0 :
             string+="R{0}-->{1}R{0}".format(i+1, str(1 /
@@ -145,4 +130,3 @@ def redux(matriz, n):
         string+="------------------------------------------------------------------"+'\n'
     return string
 
-#print(redux([[1,2,3],[4,5,6],[7,8,9]],3))
